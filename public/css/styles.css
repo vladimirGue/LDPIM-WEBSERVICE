@@ -1,0 +1,67 @@
+.message{
+    background: #4FD40B;
+    border:solid #A9E38B;
+    font-size: 2em;
+    float: left;
+ 
+}
+.message::after{
+    content: "bien Ajoutee";
+}
+.messageM{
+    background: #E8EE1A;
+    border:solid #A9E38B;
+    font-size: 2em;
+    float: left;
+ 
+}
+.messageM::after{
+    content: "bien Modifie";
+}
+
+.login{
+    background: #696969;
+}
+.center{
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+    height: 300px;
+    margin-top: -150px;
+    padding: 5px;
+    background: #00BFFF;
+    text-align: center;
+    filter:alpha(opacity=60);
+    -moz-opacity:0.6;
+    opacity: 0.5;
+    border-radius: 10px;
+
+}
+
+.butFacLog{ 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    margin-left: -110px;
+    height: 300px;
+    margin-top: -30px;
+    padding: 5px;
+}
+
+.userajoute{
+    background: #4FD40B;
+    font-size: 1em;
+    float: left;
+    height: 2em;
+    border-radius: 0.8px;
+ 
+}
+.userajoute::after{
+    content: "user Ajoutee";
+}
+
+/* ici pour le checkbox */
