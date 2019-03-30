@@ -17,18 +17,11 @@
          <div class="col-sm-5">  
             <input type="submit"  class="btn btn-success" name="action"  id="ajout" value="ajouter task">
             <input type="submit"  class="btn btn-warning" name="action"  id="modifier" value="modifier task">
-
-            <div style="padding:20px">
-
-                  <select  id="chkveg" multiple="multiple">
-
-                  <?php foreach($donnees['users'] as $option) {?>
-                  <option value="<?php echo $option->Id;?>"><?php echo $option->prenom; ?></option>
-                  <?php } ?>
-                  </select><br /><br />
-
-            </div>
-
+            <select  id="chkveg" multiple="multiple">
+               <?php foreach($donnees['users'] as $option) {?>
+               <option value="<?php echo $option->Id;?>"><?php echo $option->prenom; ?></option>
+               <?php } ?>
+            </select><br /><br />
          </div>
          </div>
       </div>
