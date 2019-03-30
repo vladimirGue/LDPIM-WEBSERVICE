@@ -1,8 +1,8 @@
 
 var J=jQuery.noConflict();
+//button pour editer la tache selon l'id
 J('[name=editer]').click(function(){
     event.preventDefault();
-    //var data=J('#idformTabl').serialize();
      var data=J(this).attr('id');
      var datos="id="+data;
     J.ajax({
@@ -21,6 +21,7 @@ J('[name=editer]').click(function(){
     });
 });
 
+//button pour effacer la tache selon l'id
 J('[name=effacer]').click(function(){
          event.preventDefault();
          var data=J(this).attr('id');
@@ -56,6 +57,7 @@ J('[name=effacer]').click(function(){
          
 });
 
+//button pour affecter la tache selon l'id
 J('[name=iduser]').click(function(){
     event.preventDefault();
     var data=J(this).attr("id-user");

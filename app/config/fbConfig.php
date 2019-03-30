@@ -14,8 +14,8 @@ use Facebook\Exceptions\FacebookSDKException;
 /*
  * Configuración de Facebook SDK
  */
-$appId         = '2287189081301914'; //Identificador de la Aplicación
-$appSecret     = 'aeaaa69e776d1e4cc8b6bbc278177a85'; //Clave secreta de la aplicación
+$appId         = ''; //Identificador de la Aplicación
+$appSecret     = ''; //Clave secreta de la aplicación
 $redirectURL   = 'http://localhost:8080/PRUEBA/pages/accuil/'; //Callback URL
 $fbPermissions = [''];  //Permisos opcionales
 

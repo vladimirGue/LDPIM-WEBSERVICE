@@ -7,14 +7,17 @@ class controlleur extends Pages{
        $this->task_modele=$this->modele('Requete');
     }
 
+    //methode qui s'execute tout d'abord
     public function index(){
 
-        $this->vue('pages/login');
+        $this->vue('pages/accuil');
     }
+    //dans le cas d'utiliser la connexion facebook
     public function accuil(){
         $this->vue('pages/accuil');
 
     }
+    //methode qui s'execute lorsqu'on ouvre la page principal accuil
     public function getTodo(){
         //je prends tous les donnees de la base  
         $tasks=$this->task_modele->getTask();
@@ -74,11 +77,24 @@ class controlleur extends Pages{
     public function ajouter(){
         //j'ajoute le task à la base de donnees  
         if($_SERVER['REQUEST_METHOD']=='POST'){
+
+            //si on affecte la tache au moment de créer la tache aux utilisateurs
+            if(isset($_POST['id-tacheUser'])){
+                $result=$_POST['id-tacheUser'];
+                $tachAfectIM=implode(',',$result);
             $data=[
                 'date'=>trim($_POST['id-date']),
                 'tache'=>trim($_POST['tache']),
-                'id-tacheA'=>trim($_POST['id-tacheUser']),
+                'id-tacheA'=>$tachAfectIM,
+                
             ];
+        }else{
+            $data=[
+                'date'=>trim($_POST['id-date']),
+                'tache'=>trim($_POST['tache']),
+                
+            ];
+        }
             $task=$this->task_modele->ajouterTask($data);
             $donnees=[
                 'tasks'=>$task
@@ -279,6 +295,7 @@ class controlleur extends Pages{
 
     }
 
+    //methode principal pour ajouter des utilisateurs
     public function ajouterUser(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $data=[
@@ -290,6 +307,7 @@ class controlleur extends Pages{
         }
     }
 
+    //affecter une tache directement de la table
     public function affecterTache(){
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $data=[

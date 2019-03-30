@@ -114,7 +114,5 @@
     </div>
   </div>
 </div>
-<!--table profil Facebook-->
-<div class="container"><?php echo $userInfo; ?></div>
 
 <?php include RUTA_APP . '/vues/inc/footer.php'; ?>

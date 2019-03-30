@@ -17,21 +17,28 @@
 
        
        public function ajouterTask($donnees){
-           $this->db->query("INSERT INTO prueba (date,tache) VALUES(:date,:tache)");
 
-           //vincular valores
-           $this->db->bind(':date',$donnees['date']);
-           $this->db->bind(':tache',$donnees['tache']);
-           //ejecutar
-           $this->db->execute();
+        $this->db->query("INSERT INTO prueba (date,tache) VALUES(:date,:tache)");
 
-           if($donnees['id-tacheA']!=null){
-           $this->db->query("UPDATE user SET taches=:taches, nombre=nombre+1 where id=:id");
-           $this->db->bind(':tache',$donnees['tache']);
-           $this->db->bind(':id',$donnees['id-tacheA']);
-           $this->db->execute();
+            //lier valeurs
+            $this->db->bind(':date',$donnees['date']);
+            $this->db->bind(':tache',$donnees['tache']);
+
+            //executer
+            $this->db->execute();
+
+            //si l'utilisateur sélectionne un ou différents utilisateur la requete suivant s'execute
+           if(isset($donnees['id-tacheA'])){
+                $resultat=$donnees['id-tacheA'];
+
+                $this->db->query("UPDATE user SET taches=CONCAT(taches,',',:taches), nombre=nombre+1 where id IN (".$resultat.")");
+                $this->db->bind(':taches',$donnees['tache']);
+
+                $this->db->execute();
+                
            }
            
+           //j'obtiens les resultat pour le montrer
            $this->db->query("select * from prueba");
            $result=$this->db->registros();
            
@@ -40,7 +47,7 @@
        }
 
        
-       //obtener el id del usurio
+       //obtenir l'di d'utilisateur
        public function getTaskId($id){
         $this->db->query("SELECT * FROM prueba WHERE id=:id");
         $this->db->bind(':id',$id);
@@ -53,13 +60,13 @@
        public function updateTask($donnees){
            $this->db->query("UPDATE prueba SET date=:date, tache=:tache WHERE id=:id");
 
-           //vincular los valores
+           //lier valeurs
 
            $this->db->bind(':id', $donnees['id']);
            $this->db->bind(':date', $donnees['date']);
            $this->db->bind(':tache', $donnees['tache']);
-           //ejecutar
-
+           
+           //executer
            $this->db->execute();
 
            $this->db->query("select * from prueba");
@@ -70,11 +77,11 @@
        }
 
        public function checkUser($donnees){
-               //revisar si la informacion de usuario ya existe
+               //verifier si l'information d'utilisateur existe déjà
                if(!empty($donnees)){
                $this->db->query("SELECT * FROM oauth where oauth_provider=:oauth_provider AND oauth_uid=:oauth_uid");
 
-               //vincular valores
+               //lier valeurs
                $this->db->bind(':oauth_provider',$donnees['oauth_provider']);
                $this->db->bind(':oauth_uid',$donnees['oauth_uid']);
                $result=$this->db->registro();
@@ -82,7 +89,7 @@
                if($resultRow>0){
                    $this->db->query("UPDATE oauth SET first_name=:first_name, last_name=:last_name, picture=:picture, modified=:modified WHERE oauth_provider=:oauth_provider AND oauth_uid=:oauth_uid  ");
 
-                   //vincular valores
+                   //lier valeurs
                    $this->db->bind(':first_name',$donnees['first_name']);
                    $this->db->bind(':last_name',$donnees['last_name']);
                    $this->db->bind(':picture',$donnees['picture']);
@@ -106,7 +113,7 @@
                 }
     
             }
-                //tomar la informacion
+                //prendre l'information
            
            return $result;
 
@@ -116,12 +123,10 @@
 
         $this->db->query("DELETE FROM prueba WHERE id=:id");
 
-        //vincular los valores
-
+        //lier valeurs
         $this->db->bind(':id', $donnees['id']); 
 
-        //ejecutar
-
+        //executer
         $this->db->execute();
 
         $this->db->query("select * from prueba");
@@ -130,6 +135,8 @@
            return $result;
          
        }
+
+       //methode pour ajouter des utilisateur
        public function ajouterU($donnees){
 
             $this->db->query("INSERT INTO user (nom,prenom,role) VALUES(:nom,:prenom,:role)");
@@ -140,6 +147,7 @@
             $this->db->execute();
        }
 
+       //methode pour prendre tous les utilisateur et les montrer
        public function getTodoUser(){
            $this->db->query("SELECT * FROM user");
 
@@ -148,6 +156,7 @@
            return $resultat;
        }
 
+       //methode pour ajouter une tache
        public function ajouterTacheUser($donnees){
             $this->db->query("SELECT * FROM prueba where id=:id");
             $this->db->bind(':id',$donnees['id-tache']);

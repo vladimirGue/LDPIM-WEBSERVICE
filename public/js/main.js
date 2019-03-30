@@ -16,7 +16,6 @@ JQ(document).ready(function(){
         var dataDate=JQ('#date').val();
         var dataTache=JQ('#tache').val();
         var valor = JQ('#chkveg').val();
-
     JQ.ajax({
        url:'http://localhost:8080/PRUEBA/controlleur/ajouter/',
        type:'post',

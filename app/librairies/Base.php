@@ -1,6 +1,6 @@
 <?php
 
-     //clase para conectarse a la base de datos y ejecutar consultas
+     //classe pour se connecter avec la base de données et executer des requetes
 
      class Base{
          private $host=DB_HOST;
@@ -14,14 +14,14 @@
 
          public function __construct()
          {
-             //configurar conexion
+             //configurer la connexion
             $pdo="mysql:dbname=" . $this->db_name . ";host=" . $this->host;
             $options=array(
                 PDO::ATTR_PERSISTENT=>true,
                 PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION
             );
 
-            //crear una instancia PDO
+            //créer une instance PDO
             try {
                 $this->dbh=new PDO($pdo,$this->user,$this->password,$options);
                 
@@ -31,12 +31,12 @@
             }
          }
 
-         //preparamos la consulta
+         //on prépare la requete
          public function query($sql){
              $this->stmt=$this->dbh->prepare($sql);
          }
 
-         //vinculamos la consulta con bind
+         //on lie la requete avec bind
          public function bind($parametre,$valeur,$type=null){
  
             if(is_null($type)){
@@ -58,19 +58,18 @@
             $this->stmt->bindValue($parametre,$valeur,$type);
          }
 
-         //ejecuta la consulta
+         //execute la requete
          public function execute(){
             return $this->stmt->execute();
-             
          }
 
-         //Obtener los registros
+         //Obtenir les registres
          public function registros(){
              $this->execute();
              return $this->stmt->fetchAll(PDO::FETCH_OBJ);
          }
 
-         //obtener un solo registro
+         //Obtenir un seul registre
          public function registro(){
             $this->execute();
             return $this->stmt->fetch(PDO::FETCH_ASSOC);
@@ -80,7 +79,7 @@
             return $this->stmt->fetch(PDO::FETCH_OBJ);
         }
 
-        //obtener cantidad de filas
+        //obtenir la quantité des lignes
         public function rowCount(){
             return $this->stmt->rowCount(PDO::FETCH_OBJ);
         }
